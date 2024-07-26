@@ -44,12 +44,12 @@ namespace RestAPIServer.Controllers
 
 
         [HttpGet("{Id}")]
-        public List<string> GetByID(string Id)
+        public async Task<ActionResult<IEnumerable<Users>>> GetByID(int Id)
         {
             if (Id != null)
-                return null;
+                return await _userDbContext.UsersList.Where(c=>c.UserId == Id).ToListAsync();
             else
-                return null;
+                return NotFound();
         }
     }
 }
